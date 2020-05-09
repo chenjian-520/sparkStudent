@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+   <!-- 指定hdfs的nameservice为ns1 -->
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://ns1</value>
+    </property>
+    <!-- 指定hadoop临时目录 -->
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/home/bigdata/data/hadoop/tmp</value>
+    </property>
+    <!-- 指定zookeeper地址 -->
+    <property>
+        <name>ha.zookeeper.quorum</name>
+        <value>bigdata01:2181,bigdata02:2181,bigdata03:2181</value>
+    </property>
+</configuration>

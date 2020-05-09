@@ -1,0 +1,55 @@
+数据描述
+
+
+现有如此三份数据：
+1、users.dat    数据格式为：  2::M::56::16::70072
+对应字段为：UserID BigInt, Gender String, Age Int, Occupation String, Zipcode String
+对应字段中文解释：用户id，性别，年龄，职业，邮政编码
+
+2、movies.dat		数据格式为： 2::Jumanji (1995)::Adventure|Children's|Fantasy
+对应字段为：MovieID BigInt, Title String, Genres String
+对应字段中文解释：电影ID，电影名字，电影类型
+
+3、ratings.dat		数据格式为：  1::1193::5::978300760
+对应字段为：UserID BigInt, MovieID BigInt, Rating Double, Timestamped String
+对应字段中文解释：用户ID，电影ID，评分，评分时间戳
+
+
+hadoop fs -mkdir -p /mru/user
+hadoop fs -mkdir -p /mru/movie
+hadoop fs -mkdir -p /mru/rating
+hadoop fs -put users.dat /mru/user
+hadoop fs -put ratings.dat /mru/rating
+hadoop fs -put movies.dat /mru/movie
+
+
+val rdd_user = sc.textFile("hdfs://hadoop06:9000/mru/user/users.dat")
+val rdd_movie = sc.textFile("hdfs://hadoop06:9000/mru/user/movies.dat")
+val rdd_rating = sc.textFile("hdfs://hadoop06:9000/mru/user/ratings.dat")
+
+
+
+rdd_rating.map(x => {val xx = x.split("::"); xx.})
+
+
+实现需求：
+
+1、求被评分次数最多的10部电影，并给出评分次数（电影名，评分次数）
+
+2、分别求男性，女性当中评分最高的10部电影（性别，电影名，影评分）
+
+3、分别求男性，女性看过最多的10部电影（性别，电影名）
+
+4、年龄段在“18-24”的男人，最喜欢看10部电影
+
+5、求movieid = 2116这部电影各年龄段（因为年龄就只有7个，就按这个7个分就好了）的平均影评（年龄段，影评分）
+
+6、求最喜欢看电影（影评次数最多）的那位女性评最高分的10部电影的平均影评分（观影者，电影名，影评分）
+
+7、求好片（评分>=4.0）最多的那个年份的最好看的10部电影
+
+8、求1997年上映的电影中，评分最高的10部Comedy类电影
+
+9、该影评库中各种类型电影中评价最高的5部电影（类型，电影名，平均影评分）
+
+10、各年评分最高的电影类型（年份，类型，影评分）

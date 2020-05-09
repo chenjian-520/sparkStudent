@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+   <!--指定hdfs的nameservice为ns1，需要和core-site.xml中的保持一致 -->
+    <property>
+        <name>dfs.nameservices</name>
+        <value>ns1</value>
+    </property>
+    <!-- ns1下面有两个NameNode，分别是nn1，nn2 -->
+    <property>
+         <name>dfs.ha.namenodes.ns1</name>
+         <value>nn1,nn2</value>
+    </property>
+    <!-- nn1的RPC通信地址 -->
+    <property>
+        <name>dfs.namenode.rpc-address.ns1.nn1</name>
+        <value>bigdata01:9000</value>
+    </property>
+    <!-- nn1的http通信地址 -->
+    <property>
+        <name>dfs.namenode.http-address.ns1.nn1</name>
+        <value>bigdata01:50070</value>
+    </property>
+    <!-- nn2的RPC通信地址 -->
+    <property>
+        <name>dfs.namenode.rpc-address.ns1.nn2</name>
+        <value>bigdata02:9000</value>
+    </property>
+    <!-- nn2的http通信地址 -->
+    <property>
+        <name>dfs.namenode.http-address.ns1.nn2</name>
+        <value>bigdata02:50070</value>
+    </property>
+    <!-- 指定NameNode的元数据在JournalNode上的存放位置 -->
+    <property>
+        <name>dfs.namenode.shared.edits.dir</name>
+        <value>qjournal://bigdata01:8485;bigdata02:8485;bigdata03:8485/ns1</value>
+    </property>
+    <!-- 指定JournalNode在本地磁盘存放数据的位置 -->
+    <property>
+        <name>dfs.journalnode.edits.dir</name>
+        <value>/home/bigdata/data/hadoop/journal</value>
+    </property>
+    <!-- 指定NameNode在本地磁盘存放数据的位置 -->
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>/home/bigdata/data/hadoop/name</value>
+    </property>
+	<!-- 指定datanode在本地磁盘存放数据的位置 -->
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>/home/bigdata/data/hadoop/data</value>
+    </property>
+    <!-- 开启NameNode失败自动切换 -->
+    <property>
+        <name>dfs.ha.automatic-failover.enabled</name>
+        <value>true</value>
+    </property>
+    <!-- 配置失败自动切换实现方式 -->
+    <property>
+        <name>dfs.client.failover.proxy.provider.ns1</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+</configuration>

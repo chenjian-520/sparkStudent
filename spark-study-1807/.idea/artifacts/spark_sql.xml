@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="spark-sql">
+    <output-path>$PROJECT_DIR$/out/artifacts/spark_sql</output-path>
+    <root id="archive" name="spark-sql.jar">
+      <element id="module-output" name="spark-study-1807" />
+    </root>
+  </artifact>
+</component>
